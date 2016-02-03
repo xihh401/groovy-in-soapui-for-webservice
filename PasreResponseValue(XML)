@@ -13,5 +13,6 @@ def nodevalue = XmlUtils.prettyPrintXml("$messageBody")
 def groovyUtils2 = new com.eviware.soapui.support.GroovyUtils( context )
 def holder2 = groovyUtils2.getXmlHolder( nodevalue )
 
+
 //get new node confId's value from new xml
 return holder2.getNodeValue("//confId")
