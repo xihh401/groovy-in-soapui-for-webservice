@@ -1,0 +1,56 @@
+import java.security.MessageDigest
+import com.eviware.soapui.support.XmlHolder
+import com.eviware.soapui.support.xml.XmlUtils
+import com.eviware.soapui.support.GroovyUtils
+
+//set new_interface sign security key
+String signkey = "1234567890ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+
+//def uppercase string
+public static String exChange(String str) {
+       StringBuffer sb = new StringBuffer();      
+       if (str != null) {
+             for (int i = 0; i < str.length(); i++) {
+                     char c = str.charAt(i);
+                          if (Character.isLowerCase(c)) {
+                                   sb.append(Character.toUpperCase(c));
+                          }else sb.append(Character.toUpperCase(c));
+                }
+        }
+       return sb.toString();
+}
+
+//if you need get value from request, enable those code
+//get properties from request
+////def request = testRunner.testCase.getTestStepByName( "terminalConf" );
+////def property = request.getProperty( "request" );
+////def balanceQueryParser = new groovy.util.XmlParser(false,false).parseText(property.value)
+////def phone1 = balanceQueryParser["soapenv:Body"]["con:terminateConf"]["phone"][0].text()
+
+//get createConf response，createConf is the testcase name
+def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context )
+def holder = groovyUtils.getXmlHolder( "createConf#Response" )
+def xmlstr = holder.getNodeValue("//return")
+//change return nodevalue to new xml
+def nodevalue = XmlUtils.prettyPrintXml("$xmlstr")
+def groovyUtils2 = new com.eviware.soapui.support.GroovyUtils( context )
+def holder2 = groovyUtils2.getXmlHolder( nodevalue )
+//get new nodevalue, assign to new string
+String confid1 = holder2.getNodeValue("//confId")
+String phone1 = holder2.getNodeValue("//phone")
+
+//String dst1 ="950137313244049501373132440029501373132440021234561391676501215601612971false15"
+//compose string
+String dst = confid1 + phone1 + signkey
+//md5 dst string
+MessageDigest md = MessageDigest.getInstance("MD5");
+md.update(dst.getBytes());
+byte[] digest = md.digest();
+StringBuffer sb = new StringBuffer();
+for (byte b : digest) {
+	sb.append(String.format("%02x", b & 0xff));
+}
+//String str2 = sb.toString()
+//log.info(exChange(str2))
+//return sign value
+return exChange(sb.toString())
