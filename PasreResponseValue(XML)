@@ -1,0 +1,17 @@
+import com.eviware.soapui.support.XmlHolder
+import com.eviware.soapui.support.StringUtils
+import com.eviware.soapui.support.xml.XmlUtils
+
+//get node return's value from response
+def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context )
+//createConf is your testcase name
+def holder = groovyUtils.getXmlHolder('createConf#Response')
+def messageBody = holder.getNodeValue("//ns1:createConfResponse/return")
+
+//change nodevalue(return's) to new xml
+def nodevalue = XmlUtils.prettyPrintXml("$messageBody")
+def groovyUtils2 = new com.eviware.soapui.support.GroovyUtils( context )
+def holder2 = groovyUtils2.getXmlHolder( nodevalue )
+
+//get new node confId's value from new xml
+return holder2.getNodeValue("//confId")
