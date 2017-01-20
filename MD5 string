@@ -43,14 +43,16 @@ String phone1 = holder2.getNodeValue("//phone")
 //compose string
 String dst = confid1 + phone1 + signkey
 //md5 dst string
-MessageDigest md = MessageDigest.getInstance("MD5");
-md.update(dst.getBytes());
-byte[] digest = md.digest();
-StringBuffer sb = new StringBuffer();
-for (byte b : digest) {
-	sb.append(String.format("%02x", b & 0xff));
+public static String get32bitMD5(string dst) {
+	MessageDigest md = MessageDigest.getInstance("MD5");
+	md.update(dst.getBytes());
+	byte[] digest = md.digest();
+	StringBuffer sb = new StringBuffer();
+	for (byte b : digest) {
+		sb.append(String.format("%02x", b & 0xff));
+	}
+	//String str2 = sb.toString()
+	//log.info(exChange(str2))
+	//return sign value
+	return exChange(sb.toString())
 }
-//String str2 = sb.toString()
-//log.info(exChange(str2))
-//return sign value
-return exChange(sb.toString())
