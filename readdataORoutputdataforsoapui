@@ -1,0 +1,22 @@
+//def inputFile pwd
+def inputFile ="G:\\test530.csv"
+context.fileReader= new BufferedReader(new FileReader(inputFile))
+//def outputFile pwd
+def outputFile =new File('G:\\test531.csv')
+
+//read in
+datas =context.fileReader.readLines()
+int datasize =datas.size()
+for(int i =0;  i < datasize;  i++)
+{ 
+    data = datas[i]
+    /*
+    split data，if needed    
+    splitdatas = data.split(',')
+    */
+    //output
+    outputFile.withWriterAppend( 'UTF-8' ){ w->
+             w<<i+"  "+data+"\n\n"
+    }
+    
+}
