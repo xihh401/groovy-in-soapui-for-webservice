@@ -1,0 +1,23 @@
+def project = testRunner.testCase.getTestSuite().getProject();
+def testSuite = testRunner.testCase.getTestSuite();
+def testcase = testRunner.testCase
+def requests = testcase.getTestStepsOfType( com.eviware.soapui.impl.wsdl.teststeps.WsdlTestRequestStep.class )
+def request = requests[0];
+
+int linesize=0
+new File("G:\\testsoapui530.csv").splitEachLine(",") {
+	   //log.info "phone=${it[0]} passwd=${it[1]}"
+	   linesize = linesize+1
+     /////set property value: 
+     /////"Properties" is the step Properties's name;
+     /////"phone","password" is one of property name from step Properties
+     target = testRunner.testCase.getTestStepByName("Properties")
+     target.setPropertyValue("phone","${it[0]}")
+     target.setPropertyValue("password","${it[1]}")
+     
+     /////run request
+     testRunner.runTestStepByName(request.name)
+     /////millisecond
+     Thread.sleep(6)
+     
+}
