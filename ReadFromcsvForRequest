@@ -1,7 +1,4 @@
-def project = testRunner.testCase.getTestSuite().getProject();
-def testSuite = testRunner.testCase.getTestSuite();
-def testcase = testRunner.testCase
-def requests = testcase.getTestStepsOfType( com.eviware.soapui.impl.wsdl.teststeps.WsdlTestRequestStep.class )
+def requests = testRunner.testCase.getTestStepsOfType( com.eviware.soapui.impl.wsdl.teststeps.WsdlTestRequestStep.class )
 def request = requests[0];
 
 int linesize=0
