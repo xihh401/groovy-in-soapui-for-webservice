@@ -1,0 +1,16 @@
+def requests = testRunner.testCase.getTestStepsOfType( com.eviware.soapui.impl.wsdl.teststeps.WsdlTestRequestStep.class )
+def request = requests[0]
+
+//run request
+testRunner.runTestStepByName(request.name)
+Thread.sleep(6)
+
+//get response
+def groovyUtils =new com.eviware.soapui.support.GroovyUtils(context)
+wsdlResponse=testRunner.testCase.testSteps[request.name].getTestRequest().getResponseContentAsXml()
+holder = groovyUtils.getXmlHolder(wsdlResponse)
+message=holder.getNodeValue("$resphonsenamespace/return") 
+
+
+//output to file
+new File("G:\\test530.csv").append(message+"\n\n")
