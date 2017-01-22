@@ -3,13 +3,15 @@
 
 ////run request, "queryAccountABC" is the name of the test request
 ////runTestStepByName is the method from TestCaseRunner
-testRunner.runTestStepByName("queryAccountABC")
-Thread.sleep(6)
+////testRunner.runTestStepByName("queryAccountABC")
+////Thread.sleep(6)
 
 //get response
 def groovyUtils =new com.eviware.soapui.support.GroovyUtils(context)
 ////.testSteps is the method getTestSteps() from WsdlTestCase
-wsdlResponse=testRunner.testCase.testSteps["queryAccountABC"].getTestRequest().getResponseContentAsXml()
+//wsdlResponse=testRunner.testCase.testSteps["queryAccountABC"].getTestRequest().getResponseContentAsXml()
+
+wsdlResponse=testRunner.runTestStepByName("queryAccountDBOP").getResponseContentAsXml()
 holder = groovyUtils.getXmlHolder(wsdlResponse)
 message=holder.getNodeValue("$resphonsenamespace/return") 
 
