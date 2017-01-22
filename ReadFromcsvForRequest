@@ -1,5 +1,5 @@
-def requests = testRunner.testCase.getTestStepsOfType( com.eviware.soapui.impl.wsdl.teststeps.WsdlTestRequestStep.class )
-def request = requests[0];
+//def requests = testRunner.testCase.getTestStepsOfType( com.eviware.soapui.impl.wsdl.teststeps.WsdlTestRequestStep.class )
+//def request = requests[0];
 
 int linesize=0
 new File("G:\\testsoapui530.csv").splitEachLine(",") {
@@ -12,8 +12,9 @@ new File("G:\\testsoapui530.csv").splitEachLine(",") {
      target.setPropertyValue("phone","${it[0]}")
      target.setPropertyValue("password","${it[1]}")
      
-     /////run request
-     testRunner.runTestStepByName(request.name)
+     /////run request, the Method from TestCaseRunner
+     ////"queryAccountABC" is the name of the test request
+     testRunner.runTestStepByName("queryAccountABC")
      /////millisecond
      Thread.sleep(6)
      
