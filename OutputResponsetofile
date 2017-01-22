@@ -8,7 +8,7 @@ Thread.sleep(6)
 
 //get response
 def groovyUtils =new com.eviware.soapui.support.GroovyUtils(context)
-////the .testSteps is the method getTestSteps() from WsdlTestCase
+////.testSteps is the method getTestSteps() from WsdlTestCase
 wsdlResponse=testRunner.testCase.testSteps["queryAccountABC"].getTestRequest().getResponseContentAsXml()
 holder = groovyUtils.getXmlHolder(wsdlResponse)
 message=holder.getNodeValue("$resphonsenamespace/return") 
