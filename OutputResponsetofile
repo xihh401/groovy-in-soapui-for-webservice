@@ -1,13 +1,15 @@
-def requests = testRunner.testCase.getTestStepsOfType( com.eviware.soapui.impl.wsdl.teststeps.WsdlTestRequestStep.class )
-def request = requests[0]
+//def requests = testRunner.testCase.getTestStepsOfType( com.eviware.soapui.impl.wsdl.teststeps.WsdlTestRequestStep.class )
+//def request = requests[0]
 
-//run request
-testRunner.runTestStepByName(request.name)
+////run request, "queryAccountABC" is the name of the test request
+////runTestStepByName is the method from TestCaseRunner
+testRunner.runTestStepByName("queryAccountABC")
 Thread.sleep(6)
 
 //get response
 def groovyUtils =new com.eviware.soapui.support.GroovyUtils(context)
-wsdlResponse=testRunner.testCase.testSteps[request.name].getTestRequest().getResponseContentAsXml()
+////the .testSteps is the method getTestSteps() from WsdlTestCase
+wsdlResponse=testRunner.testCase.testSteps["queryAccountABC"].getTestRequest().getResponseContentAsXml()
 holder = groovyUtils.getXmlHolder(wsdlResponse)
 message=holder.getNodeValue("$resphonsenamespace/return") 
 
