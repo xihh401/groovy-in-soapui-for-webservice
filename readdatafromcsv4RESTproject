@@ -1,0 +1,27 @@
+/////read data from csv once a line，then to run whole teststep
+/////REST project
+import groovy.json.JsonSlurper
+new File("G:\\testsoapui530.csv").eachLine {
+     ///set readdata to Properties
+     target = testRunner.testCase.getTestStepByName("Properties")
+     target.setPropertyValue("loginname","${it}")
+     ///run transfer Properties
+     testRunner.runTestStepByName("In Transfer")
+     ///run REST request
+     testRunner.runTestStepByName("get")
+     ///get REST response in json style，and log
+     testRunner.runTestStepByName("getZcode")
+     ///run transfer Properties
+     testRunner.runTestStepByName("Property Transfer")
+      ///run the other REST request
+     testRunner.runTestStepByName("delete")
+     ///get the other REST response in json style，and log
+     def xresponse = testRunner.testCase.testSteps["delete"].testRequest.response.contentAsString  
+     def slurper = new JsonSlurper()
+     def re = slurper.parseText(xresponse)
+     def id = re.msg
+     log.info id
+     /////millisecond
+     Thread.sleep(6000)
+     
+}
